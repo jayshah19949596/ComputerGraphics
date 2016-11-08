@@ -1,0 +1,143 @@
+/* 2-D transformations. */
+
+
+
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+int n,tx,ty,o[4][3],ot[4][3],q,w,e,r,i,j,k,nx1,nx2,nx3,nx4,ny1,ny2,ny3,ny4,d;
+float tr[3][3];
+
+
+void main()
+{
+int gd=DETECT,gm;
+void translation();
+ void scaling();
+ void rotation();
+initgraph(&gd,&gm,"C:\\TC\\BGI");
+rectangle(200,200,300,300);
+o[0][0]=200;
+o[0][1]=300;
+o[0][2]=1;
+o[1][0]=300;
+o[1][1]=300;
+o[1][2]=1;
+o[2][0]=300;
+o[2][1]=200;
+o[2][2]=1;
+o[3][0]=200;
+o[3][1]=200;
+o[3][2]=1;
+do
+{
+printf("\n1.Translation\n2.Scaling\n3.Rotation\n4.Exit");
+scanf("%d",&n);
+
+switch(n)
+{
+case 1:
+setcolor(10);
+translation();
+break;
+case 2:
+setcolor(4);
+scaling();
+break;
+case 3:
+setcolor(14);
+rotation();
+break;
+}
+}
+while(n!=4);
+getch();
+closegraph();
+}
+
+void scaling()
+{
+float sx,sy;
+printf("Enter sx and sy ");
+scanf("%f %f",&sx,&sy);
+tr[0][0]=sx;
+tr[0][1]=0;
+tr[0][2]=0;
+tr[1][0]=0;
+tr[1][1]=sy;
+tr[1][2]=0;
+tr[2][0]=0;
+tr[2][1]=0;
+tr[2][2]=1;
+for(i=0;i<4;i++)
+for(j=0;j<3;j++)
+ot[i][j]=0;
+for(i=0;i<4;i++)
+for(j=0;j<3;j++)
+for(k=0;k<3;k++)
+ot[i][k]+=o[i][j]*tr[j][k];
+q=ot[3][0];
+w=ot[3][1];
+e=ot[1][0];
+r=ot[1][1];
+rectangle(q,w,e,r);
+
+
+
+}
+
+void translation()
+{
+printf("Enter tx and ty ");
+scanf("%d %d",&tx,&ty);
+tr[0][0]=1;
+tr[0][1]=0;
+tr[0][2]=0;
+tr[1][0]=0;
+tr[1][1]=1;
+tr[1][2]=0;
+tr[2][0]=tx;
+tr[2][1]=ty;
+tr[2][2]=1;
+for(i=0;i<4;i++)
+for(j=0;j<3;j++)
+ot[i][j]=0;
+for(i=0;i<4;i++)
+for(j=0;j<3;j++)
+for(k=0;k<3;k++)
+ot[i][k]+=o[i][j]*tr[j][k];
+
+q=ot[3][0];
+w=ot[3][1];
+e=ot[1][0];
+r=ot[1][1];
+rectangle(q,w,e,r);
+
+
+
+
+
+}
+void rotation()
+{
+float t;
+printf("Enter the angle in degrees ");
+scanf("%d",&d);
+t=3.14*d/180;
+nx1=abs(200*cos(t)+200*sin(t));
+ny1=abs(200*sin(t)-200*cos(t));
+nx2=abs(300*cos(t)+200*sin(t));
+ny2=abs(300*sin(t)-200*cos(t));
+nx3=abs(300*cos(t)+300*sin(t));
+ny3=abs(300*sin(t)-300*cos(t));
+nx4=abs(200*cos(t)+300*sin(t));
+ny4=abs(200*sin(t)-300*cos(t));
+setcolor(14);
+line(nx1,ny1,nx2,ny2);
+line(nx2,ny2,nx3,ny3);
+line(nx3,ny3,nx4,ny4);
+line(nx4,ny4,nx1,ny1);
+}

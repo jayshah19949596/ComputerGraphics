@@ -1,0 +1,47 @@
+/* Bezier Curve algorithm */
+
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+void bezier(int x[],int y[])
+{
+float u,bx,by;
+for(u=0;u<1;u=u+0.0005)
+{
+
+bx=x[0]*pow((1-u),3)+x[1]*3*u*pow((1-u),2)+x[2]*3*u*u*(1-u)+x[3]*u*u*u;
+by=y[0]*pow((1-u),3)+y[1]*3*u*pow((1-u),2)+y[2]*3*u*u*(1-u)+y[3]*u*u*u;
+putpixel(bx,by,5);
+}}
+void main()
+{
+
+int gd=DETECT,gm;
+int x[4];
+int y[4];
+int i,j;
+initgraph(&gd,&gm,"C:\\TC\\BGI");
+printf("Enter four points of 'x'");
+for(i=0;i<4;i++)
+scanf("%d",&x[i]);
+printf("Enter four points of 'y'");
+for(j=0;j<4;j++)
+ {
+  scanf("%d",&y[j]);
+ }
+
+setcolor(6);
+line(x[0] ,y[0],x[1],y[1]);
+
+setcolor(6);
+line(x[1],y[1],x[2],y[2]);
+
+setcolor(6);
+line(x[2],y[2],x[3],y[3]);
+bezier(x,y);
+getch();
+closegraph();
+}

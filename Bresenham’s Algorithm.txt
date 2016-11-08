@@ -1,0 +1,80 @@
+/* Bresenham’s Algorithm */
+
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+void ba(int n)
+{
+int x1,x2,y1,y2,dx,dy,k,pk,xk,yk,i,m,l,d1,d2,temp,temp1,flag=0;
+for(i=0;i<n;i++)
+{
+printf("Enter the coordinates of starting point of line");
+scanf("%d%d",&x1,&y1);
+printf("Enter the coordinates of ending point of line");
+scanf("%d%d",&x2,&y2);
+dx=x2-x1;
+dy=y2-y1;
+if(dy>dx)
+{
+temp=x1;
+x1=y1;
+y1=temp;
+
+temp1=x2;
+x2=y2;
+y2=temp1;
+
+dx=x2-x1;
+dy=y2-y1;
+flag=1;
+}
+if(flag==1)
+putpixel(y1,x1,14);
+else
+putpixel(x1,y1,14);
+
+
+m=2*dy;
+l=m-(2*dx);
+pk=m-dx;
+xk=x1;
+yk=y1;
+for(k=0;k<dx;k++)
+{
+xk=xk+1;
+if(pk<0)
+{
+if(flag==1)
+putpixel(yk,xk,14);
+else
+putpixel(xk,yk,14);
+pk=pk+m;
+}
+else
+{
+yk=yk+1;
+if(flag==1)
+putpixel(yk,xk,14);
+else
+putpixel(xk,yk,14);
+pk=pk+l;
+}
+}
+}
+
+}
+void main()
+{
+int n;
+int gd=DETECT,gm;
+initgraph(&gd,&gm,"C:\\tc\\BGI");
+printf("Enter the number of lines you would like to draw");
+scanf("%d",&n);
+ba(n);
+getch();
+closegraph();
+
+
+}

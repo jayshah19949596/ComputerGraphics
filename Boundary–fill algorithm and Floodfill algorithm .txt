@@ -1,0 +1,79 @@
+# include <stdio.h>
+# include <conio.h>
+# include <graphics.h>
+void b_fill(int x,int y,int f,int b)
+{
+ int c;
+ c=getpixel(x,y);
+ if((c!=b)&&(c!=f))
+ {
+  putpixel(x,y,f);
+  b_fill(x-1,y-1,f,b);
+  b_fill(x,y-1,f,b);
+  b_fill(x+1,y-1,f,b);
+  b_fill(x-1,y,f,b);
+  b_fill(x+1,y,f,b);
+  b_fill(x-1,y+1,f,b);
+  b_fill(x,y+1,f,b);
+  b_fill(x+1,y+1,f,b);
+ }
+}
+
+void f_fill(int x,int y,int old,int new)
+{
+ int g;
+ g=getpixel(x,y);
+ if((g==old)&&(g!=new))
+ {
+  putpixel(x,y,new);
+  f_fill(x-1,y-1,old,new);
+  f_fill(x,y-1,old,new);
+  f_fill(x+1,y-1,old,new);
+  f_fill(x-1,y,old,new);
+  f_fill(x+1,y,old,new);
+  f_fill(x-1,y+1,old,new);
+  f_fill(x,y+1,old,new);
+  f_fill(x+1,y+1,old,new);
+ }
+}
+
+void main()
+{
+ int x,y,new,old;
+ int ch;
+
+ int gd=DETECT,gm;
+ initgraph(&gd,&gm,"c:\\tc\\tc\\bgi");
+ old=4;
+ new=15;
+ rectangle(150,150,200,200);
+ line(175,100,150,150);
+ line(175,100,200,150);
+ rectangle(165,175,185,200);
+ fillellipse(162,162,5,5);
+ fillellipse(187,162,5,5);
+ do
+   {
+ printf("enter your choice:\n1:boundary fill\n2:flood fill\n3:exit");
+ scanf("%d",&ch);
+
+    switch(ch){
+         case 1  :{
+                    printf("enter the seed point \n\n\n\n\n\n");
+                    scanf("%d %d",&x, &y);
+                    b_fill(x,y,4,15);   
+                    break;
+                   }
+         case 2  :{
+                    delay(10); 
+                    printf("enter the new colour\n\n\n\n\n");
+                    scanf("%d",& new);
+                    f_fill(x,y,old,new);
+                    break; 
+                   }
+               }
+   }
+ while(ch!=3);       
+ getch();
+ closegraph();
+ }
